@@ -1,0 +1,123 @@
+﻿<Page x:Class="SchoolLang.Admin"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SchoolLang"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Admin">
+
+    <Grid Background="#fff">
+
+        <ScrollViewer>
+            <StackPanel Name="MSP" Visibility="Visible">
+                
+                <Button Name="SortUp" Content="По возрастанию" Click="SortUp_Click"/>
+                <Button Name="SortDown" Content="По убыванию" Click="SortDown_Click"/>
+                <ComboBox Name="CBFilter" SelectionChanged="CBFilter_SelectionChanged">
+                    <ComboBoxItem Content="0-5%"/>
+                    <ComboBoxItem Content="5-15%"/>
+                    <ComboBoxItem Content="15-30%"/>
+                    <ComboBoxItem Content="30-70%"/>
+                    <ComboBoxItem Content="70-100%"/>
+                    <ComboBoxItem Content="Все записи"/>
+                </ComboBox>
+                <TextBox Name="TBPoisk" TextChanged="TBPoisk_TextChanged"/>
+                
+                <StackPanel>
+                    <Image  Source="/Image/school_logo.png" Height="40"/>
+                </StackPanel>
+                
+                <StackPanel Grid.ColumnSpan="1">
+                    <DataGrid Name="DGServises" AutoGenerateColumns="False" HorizontalAlignment="Left" IsReadOnly="False" CanUserAddRows="False" FontSize="16px">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Initialized="StackPanel_Initialized">
+                                        <MediaElement Width="150" Height="150" Initialized="MediaElement_Initialized" Margin="0 0 15px 0"/>
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel>
+                                                <TextBlock Initialized="TextBlock_Initialized"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Initialized="TextBlock_Initialized_Cost" Margin="0 0 6px 0"/>
+                                                <TextBlock Margin="0 0 5px 0"> Рублей за</TextBlock>
+                                                    <TextBlock Initialized="TextBlock_Initialized_Duration" Margin="0 0 5px 0"/>
+                                                </StackPanel>
+                                            <StackPanel>
+                                                <TextBlock Initialized="TextBlock_Initialized_Discount"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                    <Button Name="BReg" Margin="0 30px 15px 0" Width="130px" Content="Редактировать" Initialized="Button_Initialized_Red"  Style="{StaticResource Button}" Click="BReg_Click" />
+                                                    <Button Name="BDel" Margin="0 30px 15px 0" Width="130px" Content="Удалить" Initialized="Button_Initialized_Del"  Style="{StaticResource Button}" Click="BDel_Click"/>
+                                                    <Button Name="BOrder" Margin="0 30px 15px 0" Width="130px" Content="Новый заказ" Initialized="Button_Initialized_Add"  Style="{StaticResource Button}" Click="BOrder_Click"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                    <Button Name="BAdd" Content="Добавить услугу" Click="BAdd_Click" Margin="20" Padding="10" Width="240" FontWeight="Bold" BorderThickness="3"  Style="{StaticResource Button}"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+        
+        <StackPanel Name="SPRed" Visibility="Collapsed">
+            <TextBlock Text="ID" Margin="265,5,282,5"/>
+            <TextBlock Name="TBIRId" Height="22" Margin="265,5,282,5" />
+            <TextBlock Text="Название" Margin="265 1"/>
+            <TextBox Name="TBRTitle" Height="22" Margin="265,5,282,5" />
+            <TextBlock Text="Цена" Margin="265 1"/>
+            <TextBox Name="TBRCost" Height="22" Margin="265,5,282,5"/>
+            <TextBlock Text="Время" Margin="265 1"/>
+            <TextBox Name="TBRTime" Height="22" Margin="265,5,282,5"/>
+            <TextBlock Text="Скидка %" Margin="265 1"/>
+            <TextBox Name="TBRSale" Height="22" Margin="265,5,282,5"/>
+            <TextBlock Text="Изображение"  Margin="265 1"/>
+            <TextBox Name="TBRImage" Height="22" Margin="265,5,282,10"/>
+
+            <Button Name="RImage" Content="Изменить изображение" Padding="3" Margin="300 5" Click="RImage_Click" Style="{StaticResource Button}"/>
+            <Button Name="BRReg" Content="Редактировать услугу" Padding="3" Margin="300 10" Click="BRReg_Click" Style="{StaticResource Button}"/>
+            <Button Name="BRBack" Content="Назад" Padding="3" Margin="300 5" Click="BRBack_Click" Style="{StaticResource Button}"/>
+
+        </StackPanel>
+        
+        <StackPanel Name="SPAdd" Visibility="Collapsed">
+            <TextBlock Text="Название услуги" Margin="265 1"/>
+            <TextBox Name="TBATitle" Height="22" Margin="265,5,282,5"/>
+            <TextBlock Text="Цена" Margin="265 1"/>
+            <TextBox Name="TBACost" Height="22" Margin="265,5,282,5"/>
+            <TextBlock Text="Продолжительность" Margin="265 1"/>
+            <TextBox Name="TBATime" Height="22" Margin="265,5,282,5"/>
+            <TextBlock Text="Описание" Margin="265 1"/>
+            <TextBox Name="TBADescription" Height="22" Margin="265,5,282,5"/>
+            <TextBlock Text="Скидка" Margin="265 1"/>
+            <TextBox Name="TBASale" Height="22" Margin="265,5,282,5"/>
+            <TextBlock Text="Изображение" Margin="265 1"/>
+            <TextBox Name="TBAImage" Height="22" Margin="265,5,282,5"/>
+            
+            <Button Name="AImage" Content="Изменить изображение" Click="AImage_Click" Padding="3" Margin="300 5" Style="{StaticResource Button}"/>
+            <Button Name="BAReg" Content="Добавить услугу" Click="BAReg_Click" Padding="3" Margin="300 5" Style="{StaticResource Button}"/>
+            <Button Name="BABack" Content="Назад" Click="BABack_Click" Padding="3" Margin="300 5" Style="{StaticResource Button}"/>
+        </StackPanel>
+        
+        <StackPanel Name="STOrder" Visibility="Collapsed">
+            <TextBlock Name="TBOTitle" Margin="265 1"/>
+            <TextBlock Name="TBOTime" Margin="265 1"/>
+            <TextBlock Text="Выберите дату" Margin="265 1"/>
+            <DatePicker Name="DP" Margin="265,5,282,5"/>
+            <TextBlock Text="Время" Margin="265 1"/>
+            <TextBox Name="TBTime" TextChanged="TBTime_TextChanged" Margin="265,5,282,5"/>
+            <TextBlock Text="ФИО" Margin="265 1"/>
+            <ComboBox Name="CBPeople" Margin="265,5,282,5"/>
+            
+            <Button Name="Zap" Content="Записать" Click="Zap_Click" Padding="3" Margin="300 5" Style="{StaticResource Button}"/>
+            <Button Name="TBOBack" Content="Назад" Click="TBOBack_Click" Padding="3" Margin="300 5" Style="{StaticResource Button}"/>
+        </StackPanel>
+        
+    </Grid>
+</Page>
