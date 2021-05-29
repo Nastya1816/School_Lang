@@ -49,7 +49,6 @@ namespace SchoolLang
             }
         }  
 
-
         private void TextBlock_Initialized(object sender, EventArgs e)
         {
             if (i < ServiswList.Count)
@@ -61,9 +60,6 @@ namespace SchoolLang
             }
 
         }
-
-
-
         private void StackPanel_Initialized(object sender, EventArgs e)
         {
             if (i < ServiswList.Count)
@@ -89,6 +85,59 @@ namespace SchoolLang
             }
 
         }
+
+        private void Button_Initialized_Del(object sender, EventArgs e)
+        {
+            Button BtnDel = (Button)sender;
+            if (BtnDel != null)
+            {
+                BtnDel.Uid = Convert.ToString(i);
+            }
+        }
+
+        private void Button_Initialized_Add(object sender, EventArgs e)
+        {
+            Button BtnAdd = (Button)sender;
+            if (BtnAdd != null)
+            {
+                BtnAdd.Uid = Convert.ToString(i);
+            }
+        }
+        private void TextBlock_Initialized_Cost(object sender, EventArgs e)
+        {
+
+
+            if (i < ServiswList.Count)
+            {
+                TextBlock Price = (TextBlock)sender;
+                Service S = ServiswList[i];
+                Price.Text = Convert.ToInt32(S.Cost) + "";
+            }
+        }
+        private void TextBlock_Initialized_Duration(object sender, EventArgs e)
+        {
+            if (i < ServiswList.Count)
+            {
+                TextBlock Duration = (TextBlock)sender;
+                Service S = ServiswList[i];
+                Duration.Text = Convert.ToString(S.DurationInSeconds / 60 + " Минут");
+                //  i++;
+            }
+        }
+
+        private void TextBlock_Initialized_Discount(object sender, EventArgs e)
+        {
+            if (i < ServiswList.Count)
+            {
+                TextBlock Disc = (TextBlock)sender;
+                Service S = ServiswList[i];
+                Disc.Text = Convert.ToString(S.Discount * 100 + " %");
+            }
+
+        }
+
+
+        // Реадктирование
         Service S1;
         private void BReg_Click(object sender, RoutedEventArgs e)
         {
@@ -127,20 +176,11 @@ namespace SchoolLang
 
         private void BRBack_Click(object sender, RoutedEventArgs e)
         {
-            ClassF.Mfrm.Navigate(new Admin());
-            
+            ClassF.Mfrm.Navigate(new Admin());          
         }
 
 
-        private void Button_Initialized_Del(object sender, EventArgs e)
-        {
-            Button BtnDel = (Button)sender;
-            if (BtnDel != null)
-            {
-                BtnDel.Uid = Convert.ToString(i);
-            }
-        }
-
+        //Удаление
         private void BDel_Click(object sender, RoutedEventArgs e)
         {
             Button BtnDel = (Button)sender;
@@ -151,30 +191,10 @@ namespace SchoolLang
             BD.CE.SaveChanges();
             ClassF.Mfrm.Navigate(new Admin());
         }
-        private void Button_Initialized_Add(object sender, EventArgs e)
-        {
-            Button BtnAdd = (Button)sender;
-            if (BtnAdd != null)
-            {
-                BtnAdd.Uid = Convert.ToString(i);
-            }
-        }
-
-        private void BOrder_Click(object sender, RoutedEventArgs e)
-        {
-            Button BEdit = (Button)sender;
-            int ind = Int32.Parse(BEdit.Uid);
-            S1 = ServiswList[ind];
-            TBOTitle.Text = Convert.ToString(S1.Title);
-            TBOTime.Text = Convert.ToString(S1.DurationInSeconds / 60 + " Минут");
 
 
-            SPRed.Visibility = Visibility.Collapsed;
-            MSP.Visibility = Visibility.Collapsed;
-            SPAdd.Visibility = Visibility.Collapsed;
-            STOrder.Visibility = Visibility.Visible;
-        }
 
+        //Добавить услугу
         private void BAdd_Click(object sender, RoutedEventArgs e)
         {
             
@@ -213,38 +233,21 @@ namespace SchoolLang
             ClassF.Mfrm.Navigate(new Admin());
         }
 
-        private void TextBlock_Initialized_Cost(object sender, EventArgs e)
+
+        //Новый заказ
+        private void BOrder_Click(object sender, RoutedEventArgs e)
         {
-            
+            Button BEdit = (Button)sender;
+            int ind = Int32.Parse(BEdit.Uid);
+            S1 = ServiswList[ind];
+            TBOTitle.Text = Convert.ToString(S1.Title);
+            TBOTime.Text = Convert.ToString(S1.DurationInSeconds / 60 + " Минут");
 
-            if (i < ServiswList.Count)
-            {
-                TextBlock Price = (TextBlock)sender;
-                Service S = ServiswList[i];
-                Price.Text = Convert.ToInt32(S.Cost)+"";
-            }
-        }
 
-        private void TextBlock_Initialized_Duration(object sender, EventArgs e)
-        {
-            if (i < ServiswList.Count)
-            {
-                TextBlock Duration = (TextBlock)sender;
-                Service S = ServiswList[i];
-                Duration.Text = Convert.ToString(S.DurationInSeconds / 60 + " Минут");
-                //  i++;
-            }
-        }
-
-        private void TextBlock_Initialized_Discount(object sender, EventArgs e)
-        {
-            if (i < ServiswList.Count)
-            {
-                TextBlock Disc = (TextBlock)sender;
-                Service S = ServiswList[i];
-                Disc.Text = Convert.ToString(S.Discount * 100 + " %");
-            }
-
+            SPRed.Visibility = Visibility.Collapsed;
+            MSP.Visibility = Visibility.Collapsed;
+            SPAdd.Visibility = Visibility.Collapsed;
+            STOrder.Visibility = Visibility.Visible;
         }
         DateTime DT;
         private void TBTime_TextChanged(object sender, TextChangedEventArgs e)
@@ -277,8 +280,6 @@ namespace SchoolLang
                 }
             }
         }
- 
-
         private void TBOBack_Click(object sender, RoutedEventArgs e)
         {
             ClassF.Mfrm.Navigate(new Admin());
@@ -301,6 +302,8 @@ namespace SchoolLang
 
         }
 
+        //Сортировка
+
         private void SortUp_Click(object sender, RoutedEventArgs e)
         {
             i = -1;
@@ -315,6 +318,8 @@ namespace SchoolLang
             ServiswList.Sort((x, y) => x.Cost.CompareTo(y.Cost));
             DGServises.Items.Refresh();
         }
+
+
         List<Service> ServiseListFilter = new List<Service>();
         private void CBFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

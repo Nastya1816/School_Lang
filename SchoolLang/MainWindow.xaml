@@ -9,7 +9,5 @@
     <Grid>
         <Frame Name="frm" Grid.Row="1" NavigationUIVisibility="Hidden">
         </Frame>
-
-
     </Grid>
 </Window>
